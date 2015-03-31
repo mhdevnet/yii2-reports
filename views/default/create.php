@@ -18,6 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		'formOptions' => $formOptions,
 		'scenario' => $scenario,
 		'action' => $action,
-		'type' => $type
+		'type' => $type,
     ]) ?>
 </div>

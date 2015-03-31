@@ -17,10 +17,21 @@ use kartik\widgets\ActiveForm;
 			$form->field($model, 'name');
 		?>
 		<?=
-			$form->field($model, 'notes')->textarea();
+			$form->field($model, 'notes')->textarea().
+			Html::activeHiddenInput($model, 'project');
 		?>
+		<div class="form-group">
+			<div class="col-md-2 col-lg-2 control-label">
+				<h4>Project</h4>
+			</div>
+			<div class="col-md-9 col-lg-9">
+			<?=
+				Html::tag('h3', ucfirst($model->project), ['class' => 'text-info']);
+			?>
+			</div>
+		</div>
 		<?=
-			$form->field($model, 'project')->dropDownList((new \nitm\helpers\Directory)->getDirectories('@runtime/reportico/projects'));
+			$form->field($model, 'report')->dropDownList($model->getReports($model->project));
 		?>
 		
 		<?php if(!\Yii::$app->request->isAjax): ?>

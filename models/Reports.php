@@ -35,7 +35,7 @@ class Reports extends \nitm\models\Entity
     public function rules()
     {
         return [
-            [['name', 'notes', 'project'], 'required', 'on' => ['create', 'update']],
+            [['name', 'notes', 'project', 'report'], 'required', 'on' => ['create', 'update']],
             [['author_id', 'editor_id', 'disabled', 'edits', 'last_run_by'], 'integer'],
             [['added', 'edited', 'last_run_on'], 'safe'],
             [['notes'], 'string'],
@@ -46,8 +46,9 @@ class Reports extends \nitm\models\Entity
 	public function scenarios()
 	{
 		return [
-			'create' => ['name', 'notes', 'project', 'disabled'],
-			'update' => ['name', 'notes', 'disabled', 'last_run_by']
+			'create' => ['name', 'notes', 'project', 'report', 'disabled'],
+			'update' => ['name', 'notes', 'disabled', 'last_run_by'],
+			'default' => [],
 		];
 	}
 	
@@ -80,4 +81,14 @@ class Reports extends \nitm\models\Entity
             'last_run_by' => Yii::t('app', 'Last Run By'),
         ];
     }
+	
+	public function getProjects()
+	{
+		return \Yii::$app->getModule('nitm-reports')->getProjects();
+	}
+	
+	public function getReports($project)
+	{
+		return \Yii::$app->getModule('nitm-reports')->getReports($project);
+	}
 }

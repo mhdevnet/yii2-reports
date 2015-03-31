@@ -2,43 +2,33 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\data\ArrayDataProvider;
-use kartik\icons\Icon;
-
+use nitm\helpers\Icon;
 /**
  * @var yii\web\View $this
- * @var nitm\module\models\Reports $model
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var frontend\models\search\Prefixes $searchModel
  */
 
-$this->title = $model->name." based on ".$model->project;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Reports', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$model = isset($dataProvider) ? $dataProvider->allModels[0] : $model;
+$dataProvider = isset($dataProvider) ? $dataProvider : new \yii\data\ArrayDataProvider([
+	'allModels' => [$model]
+]);
+
+/**
+ * Setup the report
+ */
+$report->initial_project = $model->project;            // Name of report project folder    
+$report->initial_report = $model->report; 
+
+
 ?>
-<div class="reports-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= GridView::widget([
-        'dataProvider' => new ArrayDataProvider([
-			'allModels' => [$model],
-			'pagination' => false,
-		]),
-        'columns' => [
-            'created_at:datetime',
-            'name',
-        ],
-		'afterRow' => function ($model, $key, $index, $grid) {
-			return Html::tag('tr', 
-				Html::tag(
-					'td', 
-					$model->notes, 
-					[
-						'colspan' => 6, 
-						'rowspan' => 1
-					]
-				)
-			);
-		}
-    ]) ?>
-
-</div>
+<?php 
+	if(!\Yii::$app->request->isAjax && !isset($noBreadcrumbs))
+		echo \yii\widgets\Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]);
+?>
+<?=
+	$report->execute();
+?>
