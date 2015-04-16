@@ -1,6 +1,6 @@
 {
 	"name": "nitm/yii2-reports",
-	"description": "Report generator for yi to based on reportico yii2",
+	"description": "Report generator for yii to based on reportico yii2",
 	"type": "yii2-extension",
 	"keywords": ["yii2","extension","report","aws"],
 	"license": "MIT",
@@ -12,7 +12,8 @@
 	],
       "require": {
         "nitm/yii2-module": "*",
-        "nitm/yii2-widgets": "*"
+        "nitm/yii2-widgets": "*",
+            "reportico/yii2-reportico": "dev-master"
       },
 	"autoload": {
 		"psr-4": {
