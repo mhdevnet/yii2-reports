@@ -11,10 +11,10 @@
 		}
 	],
       "require": {
-        "nitm/yii2-module": "*",
-        "nitm/yii2-widgets": "*",
-            "reportico/yii2-reportico": "dev-master"
-      },
+        "mhdevnet/yii2-module": "*",
+        "mhdevnet/yii2-widgets": "*",
+        "reportico/yii2-reportico": "dev-master"
+    },
 	"autoload": {
 		"psr-4": {
 			"nitm\\reports\\": ""
