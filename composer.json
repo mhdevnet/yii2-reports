@@ -1,5 +1,5 @@
 {
-	"name": "nitm/yii2-reports",
+	"name": "mhdevnet/yii2-reports",
 	"description": "Report generator for yii to based on reportico yii2",
 	"type": "yii2-extension",
 	"keywords": ["yii2","extension","report","aws"],
