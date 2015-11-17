@@ -28,19 +28,28 @@ class Module extends \yii\base\Module
 		return $ret_val;
 	}
 
-	public function getUrls($id='nitm-reports')
+	public function getUrls($id = 'nitm-reports')
 	{
-		return [
-            $id => $id,
-            $id . '/<controller:[\w\-]+>' => $id . '/<controller>/index',
-            $id . '/<controller:[\w\-]+>/<action:[\w\-]+>' => $id . '/<controller>/<action>',
-            $id . '/<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>' => $id . '/<controller>/<action>',
-            $id . '/<controller:[\w\-]+>/<action:[\w\-]+>/<type:\w+>' => $id . '/<controller>/<action>',
-			'<controller:(reports)>' => $id . '',
-			'<controller:(reports)>/<action>' => $id . '/default/<action>',
-			'<controller:(reports)>/<action>/<id:\d+>' => $id . '/default/<action>',
-			'<controller:(reports)>/<action>/<type:\w+>' => $id . '/default/<action>',
-        ];
+		$parameters = [];
+		$routeHelper = new \nitm\helpers\Routes([
+			'moduleId' => $id,
+			'map' => [
+				//'type-id' => '<controller:%controllers%>/<action>/<type>/<id:\d+>',
+				'type' => '<controller:%controllers%>/<action>/<type:\w+>',
+				'id' => '<controller:%controllers%>/<action>/<id:\d+>',
+				'action-only' => '<controller:%controllers%>/<action>',
+				'none' => '<controller:%controllers%>'
+			],
+			'controllers' => [
+				'default' => [
+					'alias' => ['report']
+				],
+			]
+		]);
+		$routeHelper->pluralize();
+		$parameters = array_keys($routeHelper->map);
+		$routes = $routeHelper->create($parameters);
+		return $routes;
 	}
 
 	protected function bootstrap($app)
